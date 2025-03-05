@@ -1,6 +1,5 @@
 #include "motor.h"
 #include "utils.h"
-#include <FEHLCD.h>
 
 namespace robot
 {
