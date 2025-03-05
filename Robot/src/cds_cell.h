@@ -10,9 +10,10 @@ enum LightType {
     UNKNOWN
 };
 
-const float RED_LIGHT_VOLTAGE = 0.306;
-const float BLUE_LIGHT_VOLTAGE = 2.165;
-const float NO_LIGHT_VOLTAGE = 3.259;
+// Using a blue filter - might switch to red
+const float RED_LIGHT_VOLTAGE = 1.118;
+const float BLUE_LIGHT_VOLTAGE = 0.591;
+const float NO_LIGHT_VOLTAGE = 3.296;
 const float TOLERANCE = 0.2;
 
 namespace robot
