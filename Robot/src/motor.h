@@ -2,6 +2,7 @@
 
 #include <FEHMotor.h>
 #include <FEHIO.h>
+#include <cfloat>
 
 // VEX Motors max recommended voltage
 const float DEFAULT_VOLTAGE = 7.2;
@@ -21,19 +22,19 @@ const float COUNTS_PER_INCH = ((LEFT_N + RIGHT_N) / 2) / (2 * 3.14 * WHEEL_RADIU
 const float RIGHT_MOTOR_SPEED_CORRECTION = 1.07;
 const float LEFT_MOTOR_SPEED_CORRECTION = 1;
 
-
 namespace robot
 {
     class Motor
     {
     private:
-        float voltage;
+        FEHMotor left_motor;
+        FEHMotor right_motor;
 
-        FEHMotor* left_motor;
-        FEHMotor* right_motor;
+        DigitalEncoder left_encoder;
+        DigitalEncoder right_encoder;
 
-        DigitalEncoder* left_encoder;
-        DigitalEncoder* right_encoder;
+        void move(int motor_speed, float distance, bool forward);
+        void rotate(int turn_speed, float degrees, bool left);
 
     public:
         Motor(
@@ -42,8 +43,6 @@ namespace robot
             FEHIO::FEHIOPin left_encoder_pin,
             FEHIO::FEHIOPin right_encoder_pin
         );
-
-        ~Motor();
 
         void stop();
 
@@ -59,4 +58,4 @@ namespace robot
         void rotate_right(int turn_speed);
         void rotate_right(int turn_speed, float degrees);
     };
-} // robot
+} // namespace robot

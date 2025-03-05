@@ -9,147 +9,86 @@ namespace robot
         FEHMotor::FEHMotorPort right_motor_port,
         FEHIO::FEHIOPin left_encoder_pin,
         FEHIO::FEHIOPin right_encoder_pin
-    )
-    {
-        this->voltage = DEFAULT_VOLTAGE;
-
-        this->left_motor = new FEHMotor(left_motor_port, this->voltage);
-        this->right_motor = new FEHMotor(right_motor_port, this->voltage);
-
-        this->left_encoder = new DigitalEncoder(left_encoder_pin);
-        this->right_encoder = new DigitalEncoder(right_encoder_pin);
-    }
-
-    Motor::~Motor()
-    {
-        delete this->left_motor;
-        delete this->right_motor;
-
-        delete this->left_encoder;
-        delete this->right_encoder;
-    }
+    ) : left_motor(left_motor_port, DEFAULT_VOLTAGE),
+        right_motor(right_motor_port, DEFAULT_VOLTAGE),
+        left_encoder(left_encoder_pin),
+        right_encoder(right_encoder_pin) {}
 
     void Motor::stop()
     {
-        right_motor->Stop();
-        left_motor->Stop();
+        left_motor.Stop();
+        right_motor.Stop();
+    }
+
+    void Motor::move(int motor_speed, float distance, bool forward)
+    {
+        left_encoder.ResetCounts();
+        right_encoder.ResetCounts();
+
+        float counts = distance * COUNTS_PER_INCH;
+        int speed = forward ? motor_speed : -motor_speed;
+        left_motor.SetPercent(speed * LEFT_MOTOR_SPEED_CORRECTION);
+        right_motor.SetPercent(speed * RIGHT_MOTOR_SPEED_CORRECTION);
+
+        while ((left_encoder.Counts() + right_encoder.Counts()) / 2.0 < counts);
+
+        stop();
     }
 
     void Motor::move_forward(int motor_speed)
     {
-        right_encoder->ResetCounts();
-        left_encoder->ResetCounts();
-
-        right_motor->SetPercent(motor_speed * RIGHT_MOTOR_SPEED_CORRECTION);
-        left_motor->SetPercent(motor_speed * LEFT_MOTOR_SPEED_CORRECTION);
+        move(motor_speed, FLT_MAX, true);
     }
 
     void Motor::move_forward(int motor_speed, float distance)
     {
-        right_encoder->ResetCounts();
-        left_encoder->ResetCounts();
-
-        float counts = distance * COUNTS_PER_INCH;
-
-        right_motor->SetPercent(motor_speed * RIGHT_MOTOR_SPEED_CORRECTION);
-        left_motor->SetPercent(motor_speed * LEFT_MOTOR_SPEED_CORRECTION);
-
-        while((left_encoder->Counts() + right_encoder->Counts()) / 2. < counts);
-
-        right_motor->Stop();
-        left_motor->Stop();
+        move(motor_speed, distance, true);
     }
 
     void Motor::move_backwards(int motor_speed)
     {
-        right_encoder->ResetCounts();
-        left_encoder->ResetCounts();
-
-        right_motor->SetPercent(-motor_speed * RIGHT_MOTOR_SPEED_CORRECTION);
-        left_motor->SetPercent(-motor_speed * LEFT_MOTOR_SPEED_CORRECTION);
+        move(motor_speed, FLT_MAX, false);
     }
 
     void Motor::move_backwards(int motor_speed, float distance)
     {
-        right_encoder->ResetCounts();
-        left_encoder->ResetCounts();
+        move(motor_speed, distance, false);
+    }
 
-        float counts = distance * COUNTS_PER_INCH;
+    void Motor::rotate(int turn_speed, float degrees, bool left)
+    {
+        left_encoder.ResetCounts();
+        right_encoder.ResetCounts();
 
-        right_motor->SetPercent(-motor_speed * RIGHT_MOTOR_SPEED_CORRECTION);
-        left_motor->SetPercent(-motor_speed * LEFT_MOTOR_SPEED_CORRECTION);
+        float counts = (WHEEL_SPAN / 2) * degrees_to_radians(degrees) * COUNTS_PER_INCH;
+        int left_speed = left ? -turn_speed : turn_speed;
+        int right_speed = left ? turn_speed : -turn_speed;
 
-        while((left_encoder->Counts() + right_encoder->Counts()) / 2. < counts);
+        left_motor.SetPercent(left_speed * LEFT_MOTOR_SPEED_CORRECTION);
+        right_motor.SetPercent(right_speed * RIGHT_MOTOR_SPEED_CORRECTION);
 
-        right_motor->Stop();
-        left_motor->Stop();
+        while ((left_encoder.Counts() + right_encoder.Counts()) / 2.0 < counts);
+
+        stop();
     }
 
     void Motor::rotate_left(int turn_speed)
     {
-        right_encoder->ResetCounts();
-        left_encoder->ResetCounts();
-
-        float distance = (WHEEL_SPAN / 2) * degrees_to_radians(90);
-        float counts = distance * COUNTS_PER_INCH;
-
-        right_motor->SetPercent(turn_speed * RIGHT_MOTOR_SPEED_CORRECTION);
-        left_motor->SetPercent(-turn_speed * LEFT_MOTOR_SPEED_CORRECTION);
-
-        while((left_encoder->Counts() + right_encoder->Counts()) / 2. < counts);
-
-        right_motor->Stop();
-        left_motor->Stop();
+        rotate(turn_speed, 90, true);
     }
 
     void Motor::rotate_left(int turn_speed, float degrees)
     {
-        right_encoder->ResetCounts();
-        left_encoder->ResetCounts();
-
-        float distance = (WHEEL_SPAN / 2) * degrees_to_radians(degrees);
-        float counts = distance * COUNTS_PER_INCH;
-
-        right_motor->SetPercent(turn_speed * RIGHT_MOTOR_SPEED_CORRECTION);
-        left_motor->SetPercent(-turn_speed * LEFT_MOTOR_SPEED_CORRECTION);
-
-        while((left_encoder->Counts() + right_encoder->Counts()) / 2. < counts);
-
-        right_motor->Stop();
-        left_motor->Stop();
+        rotate(turn_speed, degrees, true);
     }
 
     void Motor::rotate_right(int turn_speed)
     {
-        right_encoder->ResetCounts();
-        left_encoder->ResetCounts();
-
-        float distance = (WHEEL_SPAN / 2) * degrees_to_radians(90);
-        float counts = distance * COUNTS_PER_INCH;
-
-        right_motor->SetPercent(-turn_speed * RIGHT_MOTOR_SPEED_CORRECTION);
-        left_motor->SetPercent(turn_speed * LEFT_MOTOR_SPEED_CORRECTION);
-
-        while((left_encoder->Counts() + right_encoder->Counts()) / 2. < counts);
-
-        right_motor->Stop();
-        left_motor->Stop();
+        rotate(turn_speed, 90, false);
     }
 
     void Motor::rotate_right(int turn_speed, float degrees)
     {
-        right_encoder->ResetCounts();
-        left_encoder->ResetCounts();
-
-        float distance = (WHEEL_SPAN / 2) * degrees_to_radians(degrees);
-        float counts = distance * COUNTS_PER_INCH;
-
-        right_motor->SetPercent(-turn_speed * RIGHT_MOTOR_SPEED_CORRECTION);
-        left_motor->SetPercent(turn_speed * LEFT_MOTOR_SPEED_CORRECTION);
-
-        while((left_encoder->Counts() + right_encoder->Counts()) / 2. < counts);
-
-        right_motor->Stop();
-        left_motor->Stop();
+        rotate(turn_speed, degrees, false);
     }
 }
