@@ -1,6 +1,8 @@
 #include "cds_cell.h"
 #include <cmath>
 
+#include "FEHLCD.h"
+
 
 namespace robot
 {
@@ -11,15 +13,28 @@ namespace robot
     LightType CdsCell::detect_light()
     {
         float voltage = cds_cell.Value();
+        LCD.WriteLine(voltage);
 
-        if (std::fabs(voltage - RED_LIGHT_VOLTAGE) < TOLERANCE) {
+        if (voltage < RED_LIGHT_VOLTAGE)
+        {
+            // LCD.WriteLine("Red!");
             return RED_LIGHT;
-        } else if (std::fabs(voltage - BLUE_LIGHT_VOLTAGE) < TOLERANCE) {
+        }
+        else if (std::fabs(voltage - BLUE_LIGHT_VOLTAGE) < TOLERANCE)
+        {
+            // LCD.WriteLine("VBlue!");
+
             return BLUE_LIGHT;
-        } else if (std::fabs(voltage - NO_LIGHT_VOLTAGE) < TOLERANCE) {
+        }
+        else if (std::fabs(voltage - NO_LIGHT_VOLTAGE) < TOLERANCE)
+        {
+            // LCD.WriteLine("No light!");
             return NO_LIGHT;
-        } else {
-            return UNKNOWN;
+        }
+        else
+        {
+            // LCD.WriteLine("Unknown!");
+            return UNKNOWN_LIGHT;
         }
     }
 }
