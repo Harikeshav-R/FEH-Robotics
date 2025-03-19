@@ -57,5 +57,8 @@ namespace robot
 
         void rotate_right(int turn_speed);
         void rotate_right(int turn_speed, float degrees);
+
+        float left_encoder_counts();
+        float right_encoder_counts();
     };
 } // namespace robot

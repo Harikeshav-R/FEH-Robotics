@@ -90,4 +90,14 @@ namespace robot
     {
         rotate(turn_speed, degrees, false);
     }
+
+    float Motor::left_encoder_counts()
+    {
+        return left_encoder.Counts();
+    }
+
+    float Motor::right_encoder_counts()
+    {
+        return right_encoder.Counts();
+    }
 }
