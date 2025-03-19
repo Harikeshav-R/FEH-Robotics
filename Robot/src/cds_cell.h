@@ -2,6 +2,7 @@
 
 #include <FEHIO.h>
 #include <cfloat>
+#include "constants.h"
 
 enum LightType {
     RED_LIGHT,
@@ -9,12 +10,6 @@ enum LightType {
     NO_LIGHT,
     UNKNOWN_LIGHT
 };
-
-// Using a blue filter - might switch to red
-const float RED_LIGHT_VOLTAGE = .5;
-const float BLUE_LIGHT_VOLTAGE = .87;
-const float NO_LIGHT_VOLTAGE = 3;
-const float TOLERANCE = 0.08;
 
 namespace robot
 {
