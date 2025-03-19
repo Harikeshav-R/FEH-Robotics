@@ -1,5 +1,7 @@
 #pragma once
 
+#include "motor.h"
+
 namespace robot
 {
     float degrees_to_radians(int degrees);
