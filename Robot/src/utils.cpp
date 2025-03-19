@@ -14,7 +14,7 @@ namespace robot
         return (3.14 / 180) * degrees;
     }
 
-    float encoder_test(int speed, int milliseconds, Motor motor_handler)
+    void encoder_test(int speed, int milliseconds, Motor motor_handler)
     {
         motor_handler.move_forward(speed);
         Sleep(milliseconds);
@@ -27,7 +27,7 @@ namespace robot
         LCD.WriteLine(motor_handler.right_encoder_counts());
     }
 
-    float encoder_test(int speed, float seconds, Motor motor_handler)
+    void encoder_test(int speed, float seconds, Motor motor_handler)
     {
         motor_handler.move_forward(speed);
         Sleep(seconds);
