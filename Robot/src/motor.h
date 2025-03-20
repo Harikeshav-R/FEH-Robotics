@@ -17,7 +17,7 @@ namespace robot
         DigitalEncoder left_encoder;
         DigitalEncoder right_encoder;
 
-        void move(int motor_speed, float distance, bool forward);
+        void move(int motor_speed, float distance, bool forward, bool indefinite);
         void rotate(int turn_speed, float degrees, bool left);
 
     public:

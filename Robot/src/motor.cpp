@@ -1,6 +1,8 @@
 #include "motor.h"
 #include "utils.h"
 
+#include "FEHBattery.h"
+
 namespace robot
 {
     Motor::Motor(
@@ -19,24 +21,32 @@ namespace robot
         right_motor.Stop();
     }
 
-    void Motor::move(int motor_speed, float distance, bool forward)
+    void Motor::move(int motor_speed, float distance, bool forward, bool indefinite = false)
     {
         left_encoder.ResetCounts();
         right_encoder.ResetCounts();
 
+        float battery_percentage_offset = MAXIMUM_BATTERY_VOLTAGE / Battery.Voltage();
+
         float counts = distance * COUNTS_PER_INCH;
         int speed = forward ? motor_speed : -motor_speed;
-        left_motor.SetPercent(speed * LEFT_MOTOR_SPEED_CORRECTION);
-        right_motor.SetPercent(speed * RIGHT_MOTOR_SPEED_CORRECTION);
+        left_motor.SetPercent(speed * battery_percentage_offset * LEFT_MOTOR_SPEED_CORRECTION);
+        right_motor.SetPercent(speed * battery_percentage_offset *RIGHT_MOTOR_SPEED_CORRECTION);
 
-        while ((left_encoder.Counts() + right_encoder.Counts()) / 2.0 < counts);
-
-        stop();
+        if (indefinite)
+        {
+            return;
+        }
+        else
+        {
+            while ((left_encoder.Counts() + right_encoder.Counts()) / 2.0 < counts);
+            stop();
+        }
     }
 
     void Motor::move_forward(int motor_speed)
     {
-        move(motor_speed, FLT_MAX, true);
+        move(motor_speed, 0, true, true);
     }
 
     void Motor::move_forward(int motor_speed, float distance)
@@ -46,7 +56,7 @@ namespace robot
 
     void Motor::move_backwards(int motor_speed)
     {
-        move(motor_speed, FLT_MAX, false);
+        move(motor_speed, 0, false, true);
     }
 
     void Motor::move_backwards(int motor_speed, float distance)
@@ -59,12 +69,14 @@ namespace robot
         left_encoder.ResetCounts();
         right_encoder.ResetCounts();
 
+        float battery_percentage_offset = MAXIMUM_BATTERY_VOLTAGE / Battery.Voltage();
+
         float counts = (WHEEL_SPAN / 2) * degrees_to_radians(degrees) * COUNTS_PER_INCH;
         int left_speed = left ? -turn_speed : turn_speed;
         int right_speed = left ? turn_speed : -turn_speed;
 
-        left_motor.SetPercent(left_speed * LEFT_MOTOR_SPEED_CORRECTION);
-        right_motor.SetPercent(right_speed * RIGHT_MOTOR_SPEED_CORRECTION);
+        left_motor.SetPercent(left_speed * battery_percentage_offset * LEFT_MOTOR_SPEED_CORRECTION);
+        right_motor.SetPercent(right_speed * battery_percentage_offset * RIGHT_MOTOR_SPEED_CORRECTION);
 
         while ((left_encoder.Counts() + right_encoder.Counts()) / 2.0 < counts);
 
