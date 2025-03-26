@@ -1,9 +1,13 @@
 #pragma once
 
-#include <FEHMotor.h>
-#include <FEHIO.h>
 #include <cfloat>
+
+#include <FEHBattery.h>
+#include <FEHIO.h>
+#include <FEHMotor.h>
+
 #include "constants.h"
+#include "utils.h"
 
 
 namespace robot

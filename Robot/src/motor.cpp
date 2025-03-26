@@ -1,7 +1,4 @@
 #include "motor.h"
-#include "utils.h"
-
-#include "FEHBattery.h"
 
 namespace robot
 {
@@ -28,7 +25,7 @@ namespace robot
 
         float battery_percentage_offset = MAXIMUM_BATTERY_VOLTAGE / Battery.Voltage();
 
-        float counts = distance * COUNTS_PER_INCH;
+        double counts = distance * COUNTS_PER_INCH;
         int speed = forward ? motor_speed : -motor_speed;
         left_motor.SetPercent(speed * battery_percentage_offset * LEFT_MOTOR_SPEED_CORRECTION);
         right_motor.SetPercent(speed * battery_percentage_offset *RIGHT_MOTOR_SPEED_CORRECTION);
@@ -71,7 +68,7 @@ namespace robot
 
         float battery_percentage_offset = MAXIMUM_BATTERY_VOLTAGE / Battery.Voltage();
 
-        float counts = (WHEEL_SPAN / 2) * degrees_to_radians(degrees) * COUNTS_PER_INCH;
+        double counts = (WHEEL_SPAN / 2) * degrees_to_radians(degrees) * COUNTS_PER_INCH;
         int left_speed = left ? -turn_speed : turn_speed;
         int right_speed = left ? turn_speed : -turn_speed;
 
