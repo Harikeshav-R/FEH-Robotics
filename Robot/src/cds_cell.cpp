@@ -1,5 +1,7 @@
 #include "cds_cell.h"
 
+#include <FEHLCD.h>
+
 
 namespace robot
 {
@@ -11,7 +13,9 @@ namespace robot
     {
         float voltage = cds_cell.Value();
 
-        if (voltage < RED_LIGHT_VOLTAGE)
+        LCD.WriteLine(voltage);
+
+        if (std::fabs(voltage - RED_LIGHT_VOLTAGE) < TOLERANCE)
         {
             return RED_LIGHT;
         }

@@ -9,8 +9,8 @@
 // Using a red filter
 const FEHIO::FEHIOPin CDS_CELL_PIN = FEHIO::P2_0;
 
-const float RED_LIGHT_VOLTAGE = 0.5;
-const float BLUE_LIGHT_VOLTAGE = .95;
+const float RED_LIGHT_VOLTAGE = 0.2;
+const float BLUE_LIGHT_VOLTAGE = .5;
 const float NO_LIGHT_VOLTAGE = 2.5;
 const float TOLERANCE = 0.15;
 
@@ -36,7 +36,7 @@ const float RIGHT_N = 172;
 const float COUNTS_PER_INCH = ((LEFT_N + RIGHT_N) / 2) / (2 * 3.14 * WHEEL_RADIUS);
 
 // Right motor correction
-const float RIGHT_MOTOR_SPEED_CORRECTION = 1.06;
+const float RIGHT_MOTOR_SPEED_CORRECTION = 1.045;
 const float LEFT_MOTOR_SPEED_CORRECTION = 1;
 
 
@@ -53,7 +53,14 @@ const int WINDOW_SERVO_MAX = 2500;
 
 // OPTOSENSORS
 // Blue wire is right, gray is left, purple is center. 
+const float RIGHT_SENSOR_STRAIGHT_BOUNDS = 0;
+const float LEFT_SENSOR_STRAIGHT_BOUNDS = 0;
+const float MIDDLE_SENSOR_STRAIGHT_BOUNDS = 0;
+
+const float RIGHT_SENSOR_CURVED_BOUNDS = 0;
+const float LEFT_SENSOR_CURVED_BOUNDS = 0;
+const float MIDDLE_SENSOR_CURVED_BOUNDS = 0;
+
 
 // MISC
 const float MAXIMUM_BATTERY_VOLTAGE = 11.5;
-// const char* RCS_IDENTIFYING_STRING = "0800A8DJX";
