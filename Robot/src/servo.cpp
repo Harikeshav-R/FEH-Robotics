@@ -17,9 +17,19 @@ namespace robot
         servo.SetDegree(degree);
     }
 
-    void Servo::set_degree(float degree)
+    void Servo::set_degree(int start_degree, int end_degree, int iterations, int sleep_delay)
     {
-        servo.SetDegree(degree);
+        int current_degree = start_degree;
+        servo.SetDegree(current_degree);
+
+        float increment = (end_degree - start_degree) / iterations;
+
+        for (int i = 0; i < iterations; i++)
+        {
+            servo.SetDegree(current_degree);
+            current_degree += increment;
+            Sleep(sleep_delay);
+        }
     }
 
     void Servo::calibrate()
