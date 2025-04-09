@@ -15,32 +15,32 @@ namespace robot
 
     bool OptoSensor::right_sensor_on_line_straight()
     {
-        return right_opto_sensor.Value() > RIGHT_SENSOR_STRAIGHT_BOUNDS;
+        return right_opto_sensor.Value() > RIGHT_OPTO_SENSOR_STRAIGHT_BOUNDS;
     }
     
     bool OptoSensor::left_sensor_on_line_straight()
     {
-        return left_opto_sensor.Value() > LEFT_SENSOR_STRAIGHT_BOUNDS;
+        return left_opto_sensor.Value() > LEFT_OPTO_SENSOR_STRAIGHT_BOUNDS;
     }
     
     bool OptoSensor::middle_sensor_on_line_straight()
     {
-        return middle_opto_sensor.Value() > MIDDLE_SENSOR_STRAIGHT_BOUNDS;
+        return middle_opto_sensor.Value() > MIDDLE_OPTO_SENSOR_STRAIGHT_BOUNDS;
     }
     
     bool OptoSensor::right_sensor_on_line_curved()
     {
-        return right_opto_sensor.Value() > RIGHT_SENSOR_CURVED_BOUNDS;
+        return right_opto_sensor.Value() > RIGHT_OPTO_SENSOR_CURVED_BOUNDS;
     }
     
     bool OptoSensor::left_sensor_on_line_curved()
     {
-        return left_opto_sensor.Value() > LEFT_SENSOR_CURVED_BOUNDS;
+        return left_opto_sensor.Value() > LEFT_OPTO_SENSOR_CURVED_BOUNDS;
     }
     
     bool OptoSensor::middle_sensor_on_line_curved()
     {
-        return middle_opto_sensor.Value() > MIDDLE_SENSOR_CURVED_BOUNDS;
+        return middle_opto_sensor.Value() > MIDDLE_OPTO_SENSOR_CURVED_BOUNDS;
     }
 
     LineState OptoSensor::detect_state()
