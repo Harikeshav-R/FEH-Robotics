@@ -1,5 +1,8 @@
 #pragma once
 
+#include <FEHLCD.h>
+#include <FEHBuzzer.h>
+
 namespace robot
 {
     float degrees_to_radians(int degrees);
