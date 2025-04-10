@@ -34,6 +34,10 @@
 
 # FEH Proteus Firmware
 fehproteusfirmware
+NUL
+Proteus.elf
+Proteus.map
+Proteus.s19
 
 # Clion
 .idea/
