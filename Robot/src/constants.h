@@ -11,7 +11,7 @@
 const FEHIO::FEHIOPin CDS_CELL_PIN = FEHIO::P1_0;
 
 const float RED_LIGHT_VOLTAGE = 0.2;
-const float BLUE_LIGHT_VOLTAGE = .5;
+const float BLUE_LIGHT_VOLTAGE = 0.8;
 const float NO_LIGHT_VOLTAGE = 2.5;
 const float TOLERANCE = 0.15;
 
@@ -20,7 +20,7 @@ const FEHMotor::FEHMotorPort LEFT_MOTOR_PORT = FEHMotor::Motor3;
 const FEHMotor::FEHMotorPort RIGHT_MOTOR_PORT = FEHMotor::Motor0;
 
 const FEHIO::FEHIOPin LEFT_ENCODER_PIN = FEHIO::P0_0;
-const FEHIO::FEHIOPin RIGHT_ENCODER_PIN = FEHIO::P3_7;
+const FEHIO::FEHIOPin RIGHT_ENCODER_PIN = FEHIO::P3_5;
 
 // VEX Motors max recommended voltage
 const float DEFAULT_VOLTAGE = 7.2;
@@ -30,28 +30,32 @@ const float WHEEL_RADIUS = 2.75 / 2;
 const float WHEEL_SPAN = 7.5;
 
 // Experimentally determined values
-// const float LEFT_N = 172;
-// const float RIGHT_N = 172;
-const float LEFT_N = 86;
-const float RIGHT_N = 86;
+const float LEFT_N = 172;
+const float RIGHT_N = 172;
+// const float LEFT_N = 86;
+// const float RIGHT_N = 86;
 
 // Calculated values
 const float COUNTS_PER_INCH = ((LEFT_N + RIGHT_N) / 2) / (2 * 3.14 * WHEEL_RADIUS);
 
 // Right motor correction
-const float RIGHT_MOTOR_SPEED_CORRECTION = 1.045;
-const float LEFT_MOTOR_SPEED_CORRECTION = 1;
+const float RIGHT_MOTOR_SPEED_CORRECTION = 1.04;
+const float LEFT_MOTOR_SPEED_CORRECTION = 1.02;
 
 
 // SERVO
 const FEHServo::FEHServoPort WINDOW_SERVO_PORT = FEHServo::Servo0;
 const FEHServo::FEHServoPort ARM_SERVO_PORT = FEHServo::Servo7;
+const FEHServo::FEHServoPort LEVER_SERVO_PORT = FEHServo::Servo4;
 
 const int ARM_SERVO_MIN = 730;
 const int ARM_SERVO_MAX = 2400;
 
 const int WINDOW_SERVO_MIN = 500;
 const int WINDOW_SERVO_MAX = 2500;
+
+const int LEVER_SERVO_MIN = 543;
+const int LEVER_SERVO_MAX = 1454;
 
 
 // OPTOSENSORS
