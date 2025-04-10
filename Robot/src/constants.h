@@ -39,8 +39,8 @@ const float RIGHT_N = 172;
 const float COUNTS_PER_INCH = ((LEFT_N + RIGHT_N) / 2) / (2 * 3.14 * WHEEL_RADIUS);
 
 // Right motor correction
-const float RIGHT_MOTOR_SPEED_CORRECTION = 1.04;
-const float LEFT_MOTOR_SPEED_CORRECTION = 1.02;
+const float RIGHT_MOTOR_SPEED_CORRECTION = 1;
+const float LEFT_MOTOR_SPEED_CORRECTION = 1;
 
 
 // SERVO

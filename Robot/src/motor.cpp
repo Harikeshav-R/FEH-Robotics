@@ -1,4 +1,5 @@
 #include "motor.h"
+#include <cmath>
 
 namespace robot
 {
@@ -30,6 +31,8 @@ namespace robot
         left_motor.SetPercent(speed * battery_percentage_offset * LEFT_MOTOR_SPEED_CORRECTION);
         right_motor.SetPercent(speed * battery_percentage_offset *RIGHT_MOTOR_SPEED_CORRECTION);
 
+        int left_motor_speed = motor_speed, right_motor_speed = motor_speed;
+
         if (indefinite)
         {
             return;
@@ -37,6 +40,27 @@ namespace robot
         else
         {
             while ((left_encoder.Counts() + right_encoder.Counts()) / 2.0 < counts);
+            {
+                int error = left_encoder.Counts() - right_encoder.Counts();
+
+                if (abs(error) > 2)
+                {
+                    if (error > 0)
+                    {
+                        left_motor_speed = motor_speed - 1;
+                        right_motor_speed = motor_speed + 1;
+                    }
+                    else
+                    {
+                        left_motor_speed = motor_speed + 1;
+                        right_motor_speed = motor_speed - 1;
+                    }
+                }
+
+                left_motor.SetPercent(left_motor_speed);
+                right_motor.SetPercent(right_motor_speed);
+            };
+
             stop();
         }
     }
