@@ -1,6 +1,9 @@
 #pragma once
 
 #include <FEHIO.h>
+#include <cfloat>
+#include <cmath>
+
 #include "constants.h"
 
 enum LineState {

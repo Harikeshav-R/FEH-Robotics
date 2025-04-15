@@ -8,7 +8,7 @@
 
 #include "constants.h"
 #include "utils.h"
-
+#include "opto_sensor.h"
 
 namespace robot
 {
@@ -21,7 +21,7 @@ namespace robot
         DigitalEncoder left_encoder;
         DigitalEncoder right_encoder;
 
-        void move(int motor_speed, float distance, bool forward, bool indefinite);
+        void move(int motor_speed, float distance, bool forward);
         void rotate(int turn_speed, float degrees, bool left);
 
     public:
@@ -34,19 +34,17 @@ namespace robot
 
         void stop();
 
-        void move_forward(int motor_speed);
         void move_forward(int motor_speed, float distance);
 
-        void move_backwards(int motor_speed);
         void move_backwards(int motor_speed, float distance);
 
-        void rotate_left(int turn_speed);
         void rotate_left(int turn_speed, float degrees);
 
-        void rotate_right(int turn_speed);
         void rotate_right(int turn_speed, float degrees);
 
         float left_encoder_counts();
         float right_encoder_counts();
+
+        void follow_line(int base_speed, OptoSensor opto_sensor_handler, int iterations);
     };
-} // namespace robot
+}

@@ -15,15 +15,15 @@ namespace robot
 
         LCD.WriteLine(voltage);
 
-        if (std::fabs(voltage - RED_LIGHT_VOLTAGE) < TOLERANCE)
+        if (std::fabs(voltage - RED_LIGHT_VOLTAGE) < CDS_CELL_TOLERANCE)
         {
             return RED_LIGHT;
         }
-        else if (std::fabs(voltage - BLUE_LIGHT_VOLTAGE) < TOLERANCE)
+        else if (std::fabs(voltage - BLUE_LIGHT_VOLTAGE) < CDS_CELL_TOLERANCE)
         {
             return BLUE_LIGHT;
         }
-        else if (std::fabs(voltage - NO_LIGHT_VOLTAGE) < TOLERANCE)
+        else if (std::fabs(voltage - NO_LIGHT_VOLTAGE) < CDS_CELL_TOLERANCE)
         {
             return NO_LIGHT;
         }

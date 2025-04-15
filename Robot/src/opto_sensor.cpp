@@ -15,32 +15,32 @@ namespace robot
 
     bool OptoSensor::right_sensor_on_line_straight()
     {
-        return right_opto_sensor.Value() > RIGHT_OPTO_SENSOR_STRAIGHT_BOUNDS;
+        return std::fabs(right_opto_sensor.Value() - RIGHT_OPTO_SENSOR_STRAIGHT_BOUNDS) < OPTO_SENSOR_TOLERANCE;
     }
     
     bool OptoSensor::left_sensor_on_line_straight()
     {
-        return left_opto_sensor.Value() > LEFT_OPTO_SENSOR_STRAIGHT_BOUNDS;
+        return std::fabs(left_opto_sensor.Value() - RIGHT_OPTO_SENSOR_STRAIGHT_BOUNDS) < OPTO_SENSOR_TOLERANCE;
     }
     
     bool OptoSensor::middle_sensor_on_line_straight()
     {
-        return middle_opto_sensor.Value() > MIDDLE_OPTO_SENSOR_STRAIGHT_BOUNDS;
+        return std::fabs(middle_opto_sensor.Value() - RIGHT_OPTO_SENSOR_STRAIGHT_BOUNDS) < OPTO_SENSOR_TOLERANCE;
     }
     
     bool OptoSensor::right_sensor_on_line_curved()
     {
-        return right_opto_sensor.Value() > RIGHT_OPTO_SENSOR_CURVED_BOUNDS;
+        return std::fabs(right_opto_sensor.Value() - RIGHT_OPTO_SENSOR_CURVED_BOUNDS) < OPTO_SENSOR_TOLERANCE;
     }
     
     bool OptoSensor::left_sensor_on_line_curved()
     {
-        return left_opto_sensor.Value() > LEFT_OPTO_SENSOR_CURVED_BOUNDS;
+        return std::fabs(left_opto_sensor.Value() - RIGHT_OPTO_SENSOR_STRAIGHT_BOUNDS) < OPTO_SENSOR_TOLERANCE;
     }
     
     bool OptoSensor::middle_sensor_on_line_curved()
     {
-        return middle_opto_sensor.Value() > MIDDLE_OPTO_SENSOR_CURVED_BOUNDS;
+        return std::fabs(middle_opto_sensor.Value() - RIGHT_OPTO_SENSOR_STRAIGHT_BOUNDS) < OPTO_SENSOR_TOLERANCE;
     }
 
     LineState OptoSensor::detect_state()
